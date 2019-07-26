@@ -1,7 +1,10 @@
 package com.jkl.leetcode.array;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author jkl on 2019/6/4 01:18.  算法习题1
@@ -10,148 +13,25 @@ import java.util.Arrays;
 public class MyClassSum {
 
     public static void main(String[] args) {
+        int[] a = new int[]{1, 2, 3, 6, 7, 8, 8};
+        int[] b = new int[]{1, 2, 5, 6};
+        int[][] matrix = {
+                {1, 4, 7, 11, 15},
+                {2, 5, 8, 12, 19},
+                {3, 6, 9, 16, 22},
+                {10, 13, 14, 17, 24},
+                {18, 21, 23, 26, 30},
+        };
+        int[] c = new int[]{1, 1, 1, 2, 2, 3, 3, 5, 5, 5, 6};
+        int[] d = new int[]{7, 1, 5, 3, 6, 4};
 
+        maxProfit(d);
+        rotate(d,3);
     }
 
 
-    /**
-     * 《合并两个有序数组》
-     * 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
-     * <p>
-     * 说明:
-     * <p>
-     * 初始化 nums1 和 nums2 的元素数量分别为 m 和 n。
-     * 你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。
-     * 示例:
-     * <p>
-     * 输入:
-     * nums1 = [1,2,3,0,0,0], m = 3
-     * nums2 = [2,5,6],       n = 3
-     * <p>
-     * 输出: [1,2,2,3,5,6]
-     */
-
-    public static void merge(int[] nums1, int m, int[] nums2, int n) {
-        int k = m + n - 1;
-        int i = m - 1;
-        int j = n - 1;
-        while (i >= 0 && j >= 0) {
-            if (nums1[i] > nums2[j]) {
-                nums1[k] = nums1[i];
-                i--;
-            } else {
-                nums1[k] = nums2[j];
-                j--;
-            }
-            k--;
-        }
-
-        while (j >= 0) {
-            nums1[k] = nums2[j];
-            k--;
-            j--;
-        }
-        System.out.println(Arrays.toString(nums1));
-    }
-
-    /**
-     * 搜索二维矩阵 II
-     * 编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target。该矩阵具有以下特性：
-     * <p>
-     * 每行的元素从左到右升序排列。
-     * 每列的元素从上到下升序排列。
-     * 示例:
-     * <p>
-     * 现有矩阵 matrix 如下：
-     * <p>
-     * [
-     * [1,   4,  7, 11, 15],
-     * [2,   5,  8, 12, 19],
-     * [3,   6,  9, 16, 22],
-     * [10, 13, 14, 17, 24],
-     * [18, 21, 23, 26, 30]
-     * ]
-     * 给定 target = 5，返回 true。
-     * <p>
-     * 给定 target = 20，返回 false。
-     */
-    public static boolean searchMatrix(int[][] matrix, int target) {
-
-        //思路：从二维数组右上角开始，向左都依次变小，向下都依次变大, 所以从右上角开始遍历
-
-        if (matrix.length == 0) {
-            return false;
-        }
-        //数组的行数
-        int m = matrix.length;
-        //第一行的长度，即二维数组的列数
-        int n = matrix[0].length;
-        int i = 0;
-        int j = n - 1;
-
-        while (i < m && j >= 0) {
-            if (matrix[i][j] == target) {
-                return true;
-            } else if (matrix[i][j] > target) {
-                j--;
-            } else {
-                i++;
-            }
-        }
-        return false;
-    }
 
 
-    /**
-     * 从排序数组中删除重复项
-     * 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
-     * <p>
-     * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
-     * <p>
-     * 示例 1:
-     * <p>
-     * 给定数组 nums = [1,1,2,2,3],
-     * <p>
-     * 函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。
-     * <p>
-     * 你不需要考虑数组中超出新长度后面的元素。
-     * 示例 2:
-     * <p>
-     * 给定 nums = [0,0,1,1,1,2,2,3,3,4],
-     * <p>
-     * 函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。
-     * <p>
-     * 你不需要考虑数组中超出新长度后面的元素。
-     * 说明:
-     * <p>
-     * 为什么返回数值是整数，但输出的答案是数组呢?
-     * <p>
-     * 请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。
-     * <p>
-     * 你可以想象内部操作如下:
-     * <p>
-     * // nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
-     * int len = removeDuplicates(nums);
-     * <p>
-     * // 在函数里修改输入数组对于调用者是可见的。
-     * // 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。
-     * for (int i = 0; i < len; i++) {
-     * print(nums[i]);
-     * }
-     */
-    public static int removeDuplicates(int[] nums) {
-        int k = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != nums[k]) {
-                k++;
-                nums[k] = nums[i];
-            }
-            if (nums[nums.length - 1] == nums[k]) {
-                break;
-            }
-        }
-        return ++k;
-    }
 
     /**
      * 买卖股票的最佳时机 II
@@ -218,7 +98,7 @@ public class MyClassSum {
     public static void rotate(int[] nums, int k) {
         for (int i = 0; i < nums.length; i++) {
             if (i <= k) {
-                nums[i + k - 1] = nums[i];
+                nums[i + k-1] = nums[i];
             } else {
                 nums[i - 1 - 3] = nums[i];
             }
