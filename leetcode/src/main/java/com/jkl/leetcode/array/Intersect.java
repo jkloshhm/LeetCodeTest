@@ -28,12 +28,12 @@ public class Intersect {
     public static void main(String[] args) {
         int[] array1 = new int[]{4, 0, 5, 0, 9};
         int[] array2 = new int[]{4, 0, 5, 1, 2};
-        System.out.println(Arrays.toString(intersect1(array1, array2)));
+        System.out.println(Arrays.toString(intersect(array1, array2)));
     }
 
 
     /**
-     * 思路：
+     * 思路：两个数组循环，设置一个内层数组的boolean数组，当外层和内层相等的时候设置内存够数组为true。
      */
     private static int[] intersect(int[] nums1, int[] nums2) {
         int length1 = nums1.length;
@@ -55,34 +55,6 @@ public class Intersect {
             a[i] = list.get(i);
         }
         return a;
-    }
-
-
-    private static int[] intersect1(int[] nums1, int[] nums2) {
-        long start = System.currentTimeMillis();
-        int len1 = nums1.length;
-        int len2 = nums2.length;
-        boolean[] bl = new boolean[len2];
-        ArrayList<Integer> al = new ArrayList<Integer>();
-        for (int i = 0; i < len1; i++) {
-            for (int j = 0; j < len2; j++) {
-                if (nums1[i] == nums2[j] && !bl[j]) {
-                    al.add(nums1[i]);
-                    bl[j] = true;
-                    break;
-                }
-            }
-        }
-        int[] in = new int[al.size()];
-        int e = 0;
-        for (int i : al) {
-            in[e++] = i;
-        }
-
-        long end = System.currentTimeMillis();
-        System.out.println(end - start);
-        return in;
-
     }
 
 }

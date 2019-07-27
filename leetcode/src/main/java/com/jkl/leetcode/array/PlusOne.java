@@ -30,8 +30,6 @@ public class PlusOne {
     /**
      * 假如是[1,2,3]这种很容易加一，
      * 假如是[1,9,9,9]这种就要特殊处理了
-     *
-     *
      */
     private static int[] plusOne(int[] digits) {
 
