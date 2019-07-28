@@ -34,17 +34,21 @@ import java.util.List;
 public class RotateArray {
 
     public static void main(String[] args) {
-        int[] d = new int[]{-1, -100, 3, 997};
+        int[] d = new int[]{997};
         rotate(d, 2);
     }
 
     /**
-     * 方法一：
+     * 方法一：错误哦！！重新做
      * 思路：K是一个分水岭，新建一个ArrayList, K之后的放在ArrayList前面，K之前的放在ArrayList后面
      */
     private static void rotate(int[] nums, int k) {
-        List<Integer> list = new ArrayList<>();
 
+        if (nums == null || nums.length == 0) {
+            return;
+        }
+
+        List<Integer> list = new ArrayList<>();
         for (int i = nums.length - k; i < nums.length; i++) {
             list.add(nums[i]);
         }
@@ -52,6 +56,10 @@ public class RotateArray {
             list.add(nums[i]);
         }
 
-        System.out.println(Arrays.toString(list.toArray()));
+        for (int i = 0; i < list.size(); i++) {
+            nums[i] = list.get(i);
+        }
+
+        System.out.println(Arrays.toString(nums));
     }
 }
