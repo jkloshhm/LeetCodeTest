@@ -3,7 +3,6 @@ package com.jkl.leetcode.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,24 +31,27 @@ import java.util.List;
  * @author jkl on 2019/6/4 01:18.  算法习题1
  */
 
-public class MyClassSum {
+public class RotateArray {
 
     public static void main(String[] args) {
-        int[] d = new int[]{7, 1, 5, 3, 6, 4};
-        rotate(d, 3);
+        int[] d = new int[]{-1, -100, 3, 997};
+        rotate(d, 2);
     }
 
     /**
-     * 思路：
+     * 方法一：
+     * 思路：K是一个分水岭，新建一个ArrayList, K之后的放在ArrayList前面，K之前的放在ArrayList后面
      */
-    public static void rotate(int[] nums, int k) {
-        for (int i = 0; i < nums.length; i++) {
-            if (i <= k) {
-                nums[i + k - 1] = nums[i];
-            } else {
-                nums[i - 1 - 3] = nums[i];
-            }
+    private static void rotate(int[] nums, int k) {
+        List<Integer> list = new ArrayList<>();
+
+        for (int i = nums.length - k; i < nums.length; i++) {
+            list.add(nums[i]);
         }
-        System.out.println(Arrays.toString(nums));
+        for (int i = 0; i < nums.length - k; i++) {
+            list.add(nums[i]);
+        }
+
+        System.out.println(Arrays.toString(list.toArray()));
     }
 }

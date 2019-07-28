@@ -27,7 +27,8 @@ public class MergeArray {
 
 
     /**
-     * 思路：
+     * 思路：while循环，两个数组分别从最后面开始遍历，大的放在数组1的m+n-1位置，依次类推。
+     *      当数组1遍历完了，数组2还没有遍历完，那么数组2剩余的数还是遍历到数组1中
      */
     private static void merge(int[] nums1, int m, int[] nums2, int n) {
         int k = m + n - 1;

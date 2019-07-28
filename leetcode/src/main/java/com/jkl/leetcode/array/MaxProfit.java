@@ -32,7 +32,7 @@ public class MaxProfit {
     }
 
     /**
-     * 思路：
+     * 思路：求相邻的两个数（求后面的数-前面的数）的和。相邻的两个数prices[i]<prices[i+1]。
      */
     private static int maxProfit(int[] prices) {
         int profit = 0;
