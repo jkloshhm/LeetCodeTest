@@ -1,5 +1,7 @@
 package com.jkl.leetcode.array;
 
+import java.util.Arrays;
+
 /**
  * 《数组题：旋转图像》
  * 给定一个 n × n 的二维矩阵表示一个图像。
@@ -40,14 +42,49 @@ package com.jkl.leetcode.array;
 public class RotateMatrix {
 
     public static void main(String[] args) {
-        int[] d = new int[]{997};
+        int[][] matrix = {
+                {1, 2, 3, 4, 5},
+                {6, 7, 8, 9, 10},
+                {11, 12, 13, 14, 15},
+                {16, 17, 18, 19, 20},
+                {21, 22, 23, 24, 25},
+        };
 
+
+        int[][] matrix1 = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9},
+        };
+        rotate(matrix);
     }
 
     /**
-     * 思路：
+     * 思路: (i.j)位置的元素旋转过后 变成 （j,length-1-i）的数据；
      */
-    private void rotate(int[][] matrix) {
+    private static void rotate(int[][] matrix) {
 
+        if (matrix.length == 0 || matrix[0].length == 0 || matrix.length != matrix[0].length) {
+            return;
+        }
+
+        int length = matrix.length;
+        int tmp;
+        for (int i = 0; i < length / 2; i++) {
+            for (int j = i; j < length - 1 - i; j++) {
+                tmp = matrix[i][j];
+                matrix[i][j] = matrix[length - 1 - j][i];
+                matrix[length - 1 - j][i] = matrix[length - 1 - i][length - 1 - j];
+                matrix[length - 1 - i][length - 1 - j] = matrix[j][length - 1 - i];
+                matrix[j][length - 1 - i] = tmp;
+            }
+        }
+
+
+        System.out.println(Arrays.toString(matrix[0]));
+        System.out.println(Arrays.toString(matrix[1]));
+        System.out.println(Arrays.toString(matrix[2]));
+        System.out.println(Arrays.toString(matrix[3]));
+        System.out.println(Arrays.toString(matrix[4]));
     }
 }
