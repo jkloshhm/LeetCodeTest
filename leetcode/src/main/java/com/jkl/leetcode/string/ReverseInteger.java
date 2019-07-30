@@ -26,59 +26,9 @@ public class ReverseInteger {
     }
 
     /**
-     * 思路: 错误方法
+     * 思路: x先和10取模，可以每次取到个位数；再除以10，再取模，又可以取到个位数。。这样可以从后到前取到数字
      */
-    private static int reverseInteger(int x) {
-
-        int max = Integer.MAX_VALUE;
-        int min = Integer.MIN_VALUE;
-
-        if (min >= x || x >= max) {
-            x = 0;
-        }
-
-        String s1 = String.valueOf(x);
-        if (x < 0) {
-            s1 = s1.substring(1);
-        }
-        char[] s = s1.toCharArray();
-        if (s.length < 1) {
-            return x;
-        }
-
-        int i = 0, j = s.length - 1;
-        while (i < j) {
-            char tmp = s[i];
-            s[i] = s[j];
-            s[j] = tmp;
-            i++;
-            j--;
-        }
-
-        s1 = String.valueOf(s);
-        int x1 = Integer.parseInt(s1);
-        if (x < 0) {
-            x = -x1;
-        } else {
-            x = x1;
-        }
-
-
-        if (min > x || x > max) {
-            return 0;
-        }
-        System.out.println(x);
-        System.out.println(max);
-        System.out.println(min);
-        return x;
-
-    }
-
-    /**
-     * 思路: 正确方法
-     */
-
-    public static int reverse(int x) {
+    private static int reverse(int x) {
         long result = 0;
         while (x != 0) {
             result = result * 10 + x % 10;
