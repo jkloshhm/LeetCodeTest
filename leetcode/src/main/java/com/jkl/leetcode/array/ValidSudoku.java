@@ -1,5 +1,7 @@
 package com.jkl.leetcode.array;
 
+import java.util.HashSet;
+
 /**
  * 《数组题：有效的数独》
  * 判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。
@@ -49,12 +51,16 @@ package com.jkl.leetcode.array;
 public class ValidSudoku {
 
     public static void main(String[] args) {
-        int[][] matrix = {
-                {1, 2, 3, 4, 5},
-                {6, 7, 8, 9, 10},
-                {11, 12, 13, 14, 15},
-                {16, 17, 18, 19, 20},
-                {21, 22, 23, 24, 25},
+        char[][] matrix = {
+                {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
+                {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
+                {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+                {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+                {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+                {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+                {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+                {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
+                {'.', '.', '.', '.', '8', '.', '.', '.', '9'},
         };
 
 
@@ -63,12 +69,61 @@ public class ValidSudoku {
                 {4, 5, 6},
                 {7, 8, 9},
         };
+
+        System.out.println(isValidSudoku(matrix));
     }
 
     /**
-     * 思路:
+     * 思路: 考察HashSet的用法，HashSet不能存放相同的数据；
      */
     private static boolean isValidSudoku(char[][] board) {
-        return false;
+
+        for (int i = 0; i < 9; i++) {
+            HashSet<Character> hashSetLine = new HashSet<>();
+            HashSet<Character> hashSetRow = new HashSet<>();
+            HashSet<Character> hashSetCube = new HashSet<>();
+            for (int j = 0; j < 9; j++) {
+                //比较每一行
+                if ('.' != board[i][j] && !hashSetLine.add(board[i][j])) {
+                    return false;
+                }
+                //比较每一列
+                if ('.' != board[j][i] && !hashSetRow.add(board[j][i])) {
+                    return false;
+                }
+
+                //比较每一个3x3的9宫格
+                int m = i / 3 * 3 + j / 3;
+                int n = i % 3 * 3 + j % 3;
+                if ('.' != board[m][n] && !hashSetCube.add(board[m][n])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 思路: 这个方法是在leetcode上看到用时最短的方法
+     */
+    private static boolean isValidSudoku1(char[][] board) {
+        int[] rows = new int[9];
+        int[] cols = new int[9];
+        int[] blks = new int[9];
+        for (int i = 0; i < 9; ++i) {
+            for (int j = 0; j < 9; ++j) {
+                if (board[i][j] != '.') {
+                    int bi = i / 3 * 3 + j / 3;
+                    int uvb = 1 << (board[i][j] - '0');
+                    if ((uvb & (rows[i] | cols[j] | blks[bi])) != 0) {
+                        return false;
+                    }
+                    rows[i] |= uvb;
+                    cols[j] |= uvb;
+                    blks[bi] |= uvb;
+                }
+            }
+        }
+        return true;
     }
 }
