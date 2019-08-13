@@ -32,55 +32,12 @@ public class CountAndSay {
     public static void main(String[] args) {
 
         int n = 5;
-        System.out.println(countAndSay(n));
+        System.out.println(countAndSay1(n));
     }
 
-    /**
-     * 思路：
-     */
-    private static String countAndSay(int n) {
-        if (n < 1 || n > 30) {
-            return "";
-        } else if (n == 1) {
-            return "1";
-        } else if (n == 2) {
-            return "11";
-        }
-
-        String now = "";
-        String pre = "21";
-        int i = 2;
-        while (i < n) {
-
-
-            for (int j = 0; j < pre.length();j++ ) {
-
-                int number = pre.charAt(j) - '0';
-                //int count = 1;
-                int count = 0;
-                /*int i = pre.charAt(j) - '0';
-                while (index < chars.length && i == chars[index] - '0') {
-                    index++;
-                    count++;
-                }
-                s = sb.append(count).append(i).toString();
-                System.out.println(s);*/
-                while (number == pre.charAt(j)-'0' ) {
-                    count++;
-                    //j++;
-                }
-                pre = pre + count + number;
-            }
-
-
-            i++;
-        }
-
-        return pre;
-    }
 
     /**
-     * 思路：输入的n是循环次数，与其他无关。
+     * 方法一思路：输入的n是循环次数，与其他无关。
      */
     private static String countAndSay1(int n) {
         String s = "1";
@@ -102,5 +59,23 @@ public class CountAndSay {
             k++;
         }
         return s;
+    }
+
+
+    /**
+     * 方法二思路：有待完善
+     */
+    private static String countAndSay2(int n) {
+        if (n < 1 || n > 30) {
+            return "";
+        } else if (n == 1) {
+            return "1";
+        } else if (n == 2) {
+            return "11";
+        }
+
+        String pre = "21";
+
+        return pre;
     }
 }
