@@ -33,7 +33,7 @@ public class Intersect {
 
 
     /**
-     * 思路：两个数组循环，设置一个内层数组的boolean数组，当外层和内层相等的时候设置内存够数组为true。
+     * 思路：两个数组循环，设置一个内层数组的boolean数组，当外层和内层相等的时候设置内层数组的值为true。
      */
     private static int[] intersect(int[] nums1, int[] nums2) {
         int length1 = nums1.length;
