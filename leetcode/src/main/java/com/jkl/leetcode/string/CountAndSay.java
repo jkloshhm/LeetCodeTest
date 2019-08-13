@@ -31,13 +31,52 @@ package com.jkl.leetcode.string;
 public class CountAndSay {
     public static void main(String[] args) {
 
-        int n = 5;
-        System.out.println(countAndSay1(n));
+        int n = 10;
+        System.out.println(countAndSay(n));
     }
 
+    /**
+     * 方法二思路：n是循环次数；那么每次都找到前一次循环的结果，作为下一次循环的参数s
+     */
+    private static String countAndSay(int n) {
+        String s = "1";
+        if (n < 1 || n > 30) {
+            return "";
+        } else if (n == 1) {
+            return s;
+        }
+
+        int k = 1;
+        while (k < n) {
+            s = count(s);
+            k++;
+        }
+
+        return s;
+    }
+
+    private static String count(String s) {
+        StringBuilder sb = new StringBuilder();
+        char[] chars = s.toCharArray();
+        char now = chars[0];
+        int count = 0;
+        int i = 0;
+        while (i < chars.length) {
+            if (now == chars[i]) {
+                count++;
+            } else {
+                sb.append(count).append(now);
+                now = chars[i];
+                count = 1;
+            }
+            i++;
+        }
+        sb.append(count).append(now);
+        return sb.toString();
+    }
 
     /**
-     * 方法一思路：输入的n是循环次数，与其他无关。
+     * 方法一思路：输入的n是循环次数，与其他无关。--------居然252ms！！
      */
     private static String countAndSay1(int n) {
         String s = "1";
@@ -59,23 +98,5 @@ public class CountAndSay {
             k++;
         }
         return s;
-    }
-
-
-    /**
-     * 方法二思路：有待完善
-     */
-    private static String countAndSay2(int n) {
-        if (n < 1 || n > 30) {
-            return "";
-        } else if (n == 1) {
-            return "1";
-        } else if (n == 2) {
-            return "11";
-        }
-
-        String pre = "21";
-
-        return pre;
     }
 }
